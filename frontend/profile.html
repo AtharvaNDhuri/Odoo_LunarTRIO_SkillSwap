@@ -1,0 +1,19 @@
+﻿<div class="container">
+  <h2>Profile</h2>
+  <p id="name"></p>
+  <p id="email"></p>
+  <p id="location"></p>
+</div>
+
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) window.location.href = "index.html";
+
+  fetch(`http://localhost:5000/api/users/${user.id}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("name").textContent = "Name: " + data.name;
+      document.getElementById("email").textContent = "Email: " + data.email;
+      document.getElementById("location").textContent = "Location: " + data.location;
+    });
+</script>

@@ -1,0 +1,32 @@
+﻿<h2>Offer a Skill</h2>
+<input type="text" id="offerSkill">
+<button onclick="offerSkill()">Submit</button>
+
+<h2>Request a Skill</h2>
+<input type="text" id="requestSkill">
+<button onclick="requestSkill()">Submit</button>
+
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) window.location.href = "index.html";
+
+  async function offerSkill() {
+    const skill = document.getElementById("offerSkill").value;
+    await fetch(`http://localhost:5000/api/skills/offer`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: user.id, skill })
+    });
+    alert("Skill offered!");
+  }
+
+  async function requestSkill() {
+    const skill = document.getElementById("requestSkill").value;
+    await fetch(`http://localhost:5000/api/skills/request`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: user.id, skill })
+    });
+    alert("Skill requested!");
+  }
+</script>
