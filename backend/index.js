@@ -2,13 +2,26 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const swapRoutes = require("./routes/swapRoutes");
+const userRoutes = require('./routes/userRoutes');
+const skillRoutes = require('./routes/skillRoutes');
+const swapRoutes = require('./routes/swapRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
 
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+//Routes
+app.use('/api/users', userRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('/api/swaps', swapRoutes);
+app.use('/api/feedback', feedbackRoutes);
+app.use('/api/admin', adminRoutes);
+
 
 // Import Sequelize instance and sync DB
 const { sequelize } = require("./models");
